@@ -1292,12 +1292,12 @@ function SetupForPool(logger, poolOptions, setupFinished){
                         const desiredConfirmations = 6 // Confirmations before a block is finally marked as 'mined'
 
                         // Get block numbers related to these rounds
-                        let lowestAny = rounds.reduce((min, r) => (r.height < max ? r.height : min, rounds[0].height);
+                        let lowestAny = rounds.reduce((min, r) => (r.height < min ? r.height : min, rounds[0].height);
 
                         let confirmedRounds = rounds.filter(r => { r.confirmations >= desiredConfirmations })
-                        let highestConfirmed = confirmedBlockRounds.reduce((max, r) => (r.height > max ? r.height : max, rounds[0].height);
+                        let highestConfirmed = confirmedRounds.reduce((max, r) => (r.height > max ? r.height : max, rounds[0].height);
 
-                        if (coin === 'zclassic' && lowestAny >= masfInitialBlock && highestConfirmed <= masfInitialBlock + masfDuration - 1) {
+                        if (coin === 'zclassic' && lowestAny >= masfInitialBlock && highestConfirmed < masfInitialBlock + masfDuration) {
                           //if (worker.hasAcceptedTOS) {
                             workerPayoutsCommand.push(['hincrbyfloat', coin + ':masfPayouts', w, coinsRound(worker.sent)])
                           //} else {
