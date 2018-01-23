@@ -212,7 +212,21 @@ function searchKeyPress(e)
 </html>
 
 <script>
+<<<<<<< f99804a22ac57dcd4f748f913c33d203751c713b
     $(document).ready(function() {
+=======
+
+	function TOSAccept(){
+		localStorage.ZCLAccept = true;
+	}
+	
+    $(document).ready(function() {
+			if(localStorage.ZCLAccept == "false" || localStorage.ZCLAccept == "" || localStorage.ZCLAccept == null){
+				   $(window).on('load',function(){
+        $('#TAC').modal('show');
+    });
+	}
+>>>>>>> Remove dump.rdb and add to gitignore
 			
 		if(!window.statsSource){window.statsSource=new EventSource("/api/live_stats");}
         statsSource.addEventListener('message', function (e) {
