@@ -232,17 +232,19 @@ function paymentList(update) {
 });
 
 var ZCLMined = 0;
-var totalShares = 0;
+var totalShares = globalStats.pools.zclassic.poolStats.validShares;
 var minerShares = 0;
 var totalPaidOut = 0;
 
+var totalBlocks = globalStats.pools.zclassic.poolStats.validBlocks;
+
+if(totalBlocks < 4000){
     for (var i in workerPaymentJson) {		
         for (var p in workerPaymentJson[i].payments) {
 						var blockWork = p.work[_miner];
 							if(blockWork){
 								minerShares += p.work[_miner];
 							}
-						totalShares += p.shares;	
 						totalPaidOut += p.paid;
         }
     }
@@ -252,8 +254,12 @@ var totalPaidOut = 0;
 		ZCLMined = 0;
 	}
 	
-    $("span#ZCLMined").text(ZCLMined);
-	$("span#BTCPTotal").text(ZCLMined * 1.25);
+$("span#ZCLMined").text(ZCLMined);
+	$("span#BTCPTotal").text(ZCLMined * 1.25);    
+} else {
+	$("span#ZCLMined").text("Goal Met. Payment Pending.");
+	$("span#BTCPTotal").text("Goal Met. Payment Pending.");    
+} 
 }
 
 function rebuildWorkerDisplay() {
@@ -300,8 +306,8 @@ $.getJSON('/api/worker_stats?' + _miner, function(data) {
     updateStats();
 });
 
-		$.getJSON('/api/blocks', function(data) {
-			blocksJson = data;
+		$.getJSON('/api/stats', function(data) {
+			globalStats = data;
 		});
 		
         $.getJSON('/api/payments', function(data) {
