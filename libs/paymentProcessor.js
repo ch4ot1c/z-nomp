@@ -836,8 +836,10 @@ function SetupForPool(logger, poolOptions, setupFinished){
                     var shareLookups = rounds.map(function(r){
                         return ['hgetall', coin + ':shares:round' + r.height];
                     });
+                    // masf mined block count lookup
+                    var masfMinedBlocks = ['get', 'zclassic:masfMinedBlocks']
                     startRedisTimer();
-                    redisClient.multi(shareLookups).exec(function(error, allWorkerShares){
+                    redisClient.multi(shareLookups.concat(masfMinedBlocks)).exec(function(error, allWorkerShares){
                         endRedisTimer();
                         if (error){
                             callback('Check finished - redis error with multi get rounds share');
@@ -1046,7 +1048,14 @@ function SetupForPool(logger, poolOptions, setupFinished){
                                         break;
                                 }
                             });
-                            
+
+                            // (Last redis multi command is for the MASF block count)
+                            let masfMinedBlocks = allWorkerShares.pop()
+                            if (masfMinedBlocks > 4000) {
+                              console.error('MASF COMPLETE - 4000 Blocks Mined')
+                              // (And let them continue mining)
+                            }
+
                             // if there was no errors
                             if (err === null) {
                                 callback(null, workers, rounds, addressAccount);
@@ -1230,11 +1239,17 @@ function SetupForPool(logger, poolOptions, setupFinished){
                                 var paymentBlocks = rounds.filter(function(r){ return r.category == 'generate'; }).map(function(r){
                                     return parseInt(r.height);
                                 });
-                                
+
                                 var paymentsUpdate = [];
-                                var paymentsData = {time:Date.now(), txid:txid, shares:totalShares, paid:satoshisToCoins(totalSent),  miners:Object.keys(addressAmounts).length, blocks: paymentBlocks, amounts: addressAmounts, balances: balanceAmounts, work:shareAmounts};
-                                paymentsUpdate.push(['zadd', logComponent + ':payments', Date.now(), JSON.stringify(paymentsData)]);
-                                
+                                let now = Date.now()
+                                var paymentsData = {time:now, txid:txid, shares:totalShares, paid:satoshisToCoins(totalSent), miners:Object.keys(addressAmounts).length, blocks: paymentBlocks, amounts: addressAmounts, balances: balanceAmounts, work:shareAmounts};
+                                paymentsUpdate.push(['zadd', logComponent + ':payments', now, JSON.stringify(paymentsData)]);
+
+                                // MASF step
+                                if (coin === 'zclassic') {
+                                  paymentsUpdate.push(['incrby', 'zclassic:masfMinedBlocks', paymentBlocks.length])
+                                }
+
                                 callback(null, workers, rounds, paymentsUpdate);
 
                             } else {
@@ -1282,34 +1297,6 @@ function SetupForPool(logger, poolOptions, setupFinished){
                     // update payouts
                     if ((worker.sent || 0) > 0){
                         workerPayoutsCommand.push(['hincrbyfloat', coin + ':payouts', w, coinsRound(worker.sent)]);
-
-                        /** MASF **/
-
-                        const masfInitialBlock = 50 // TODO Set initial block number
-                        //const masfInitialTime = // TODO Should set initial block timestamp, too
-                        const masfDuration = 4000 // # of blocks in MASF; 12.5 ZCL x 4000 blocks = 50k ZCL
-
-                        const desiredConfirmations = 6 // Confirmations before a block is finally marked as 'mined'
-
-                        // Get block numbers related to these rounds
-                        let lowestAny = rounds.reduce((min, r) => (r.height < min ? r.height : min, rounds[0].height);
-
-                        let confirmedRounds = rounds.filter(r => { r.confirmations >= desiredConfirmations })
-                        let highestConfirmed = confirmedRounds.reduce((max, r) => (r.height > max ? r.height : max, rounds[0].height);
-
-                        if (coin === 'zclassic' && lowestAny >= masfInitialBlock && highestConfirmed < masfInitialBlock + masfDuration) {
-                          //if (worker.hasAcceptedTOS) {
-                            workerPayoutsCommand.push(['hincrbyfloat', coin + ':masfPayouts', w, coinsRound(worker.sent)])
-                          //} else {
-                            // Oh well, Normal payout
-                          //}
-                        }
-
-                        // To view the data when the event is over: call redis.hgetall('zclassic:masfPayouts') **
-
-                        /** END MASF **/
-
-
                         totalPaid = coinsRound(totalPaid + worker.sent);
                     }
                     // update immature balances
