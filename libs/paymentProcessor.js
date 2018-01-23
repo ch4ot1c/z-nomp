@@ -564,11 +564,13 @@ function SetupForPool(logger, poolOptions, setupFinished){
         }
         return count > 1;
     }
-    
+
     /* Deal with numbers in smallest possible units (satoshis) as much as possible. This greatly helps with accuracy
        when rounding and whatnot. When we are storing numbers for only humans to see, store in whole coin units. */
 
     var processPayments = function(){
+
+        var isMasfActive = true; //TODO set this to true and run when we wish to begin
 
         var startPaymentProcess = Date.now();
 
@@ -901,33 +903,33 @@ function SetupForPool(logger, poolOptions, setupFinished){
                                     };
                                 });
                             }
-                            
+
                             // handle rounds
                             rounds.forEach(function(round, i){
-                                var workerShares = allWorkerShares[i];                            
+                                var workerShares = allWorkerShares[i]; //(Our MSAF count is safely at the end)
                                 if (!workerShares){
                                     err = true;
                                     logger.error(logSystem, logComponent, 'No worker shares for round: ' + round.height + ' blockHash: ' + round.blockHash);
                                     return;
                                 }
                                 var workerTimes = allWorkerTimes[i];
-                                                               
+
                                 switch (round.category){
                                     case 'kicked':
                                     case 'orphan':
                                         round.workerShares = workerShares;
                                         break;
-                                    
+
                                     /* calculate immature balances */
                                     case 'immature':
                                         var feeSatoshi = coinsToSatoshies(fee);
                                         var immature = coinsToSatoshies(round.reward);
                                         var totalShares = parseFloat(0);
                                         var sharesLost = parseFloat(0);
-                                        
+
                                         // adjust block immature .. tx fees
                                         immature = Math.round(immature - feeSatoshi);
-                                        
+
                                         // find most time spent in this round by single worker
                                         maxTime = 0;
                                         for (var workerAddress in workerTimes){
@@ -1051,8 +1053,10 @@ function SetupForPool(logger, poolOptions, setupFinished){
 
                             // (Last redis multi command is for the MASF block count)
                             let masfMinedBlocks = allWorkerShares.pop()
-                            if (masfMinedBlocks > 4000) {
-                              console.error('MASF COMPLETE - 4000 Blocks Mined')
+                            if (masfMinedBlocks && typeof masfMinedBlocks === 'number' && masfMinedBlocks > 4000) {
+                              console.error('MASF COMPLETE - 4000 Blocks Mined. End Time: ', Date.now())
+
+                              isMasfActive = false
                               // (And let them continue mining)
                             }
 
@@ -1246,7 +1250,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
                                 paymentsUpdate.push(['zadd', logComponent + ':payments', now, JSON.stringify(paymentsData)]);
 
                                 // MASF step
-                                if (coin === 'zclassic') {
+                                if (coin === 'zclassic' && isMasfActive) {
                                   paymentsUpdate.push(['incrby', 'zclassic:masfMinedBlocks', paymentBlocks.length])
                                 }
 
