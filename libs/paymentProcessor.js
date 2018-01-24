@@ -1282,34 +1282,6 @@ function SetupForPool(logger, poolOptions, setupFinished){
                     // update payouts
                     if ((worker.sent || 0) > 0){
                         workerPayoutsCommand.push(['hincrbyfloat', coin + ':payouts', w, coinsRound(worker.sent)]);
-
-                        /** MASF **/
-
-                        const masfInitialBlock = 50 // TODO Set initial block number
-                        //const masfInitialTime = // TODO Should set initial block timestamp, too
-                        const masfDuration = 4000 // # of blocks in MASF; 12.5 ZCL x 4000 blocks = 50k ZCL
-
-                        const desiredConfirmations = 6 // Confirmations before a block is finally marked as 'mined'
-
-                        // Get block numbers related to these rounds
-                        let lowestAny = rounds.reduce((min, r) => (r.height < min ? r.height : min, rounds[0].height);
-
-                        let confirmedRounds = rounds.filter(r => { r.confirmations >= desiredConfirmations })
-                        let highestConfirmed = confirmedRounds.reduce((max, r) => (r.height > max ? r.height : max, rounds[0].height);
-
-                        if (coin === 'zclassic' && lowestAny >= masfInitialBlock && highestConfirmed < masfInitialBlock + masfDuration) {
-                          //if (worker.hasAcceptedTOS) {
-                            workerPayoutsCommand.push(['hincrbyfloat', coin + ':masfPayouts', w, coinsRound(worker.sent)])
-                          //} else {
-                            // Oh well, Normal payout
-                          //}
-                        }
-
-                        // To view the data when the event is over: call redis.hgetall('zclassic:masfPayouts') **
-
-                        /** END MASF **/
-
-
                         totalPaid = coinsRound(totalPaid + worker.sent);
                     }
                     // update immature balances
