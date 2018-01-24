@@ -15,7 +15,7 @@
     <!-- Custom fonts for this template-->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Page level plugin CSS-->
-     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet"> 
+     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="/static/css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/nvd3.css">
@@ -46,7 +46,7 @@
                         <span class="nav-link-text">Dashboard</span>
                     </a>
                 </li> -->
-				
+
                 <li class="nav-item {{? it.selected === 'getting_started' }}active{{?}}"  title="Getting Started">
                     <a class="nav-link" href="/getting_started">
                         <i class="fa fa-fw fa-check"></i>
@@ -104,7 +104,7 @@
                     </a>
                 </li>
             </ul>
-			
+
             <ul class="navbar-nav ml-auto">
 
                 <li class="nav-item">
@@ -123,7 +123,7 @@
                             </ul>
         </div>
     </nav>
-    
+
 <!-- Bootstrap core JavaScript-->
 
 
@@ -144,10 +144,10 @@
         <!-- <script src="/static/js/sb-admin-datatables.min.js"></script> -->
    <script src="/static/js/nvd3.js"></script>
    		<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-      <script src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script> 
+      <script src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 	  <script src="/static/js/lobibox.js"></script>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
 function searchKeyPress(e)
 {
     // look for window.event in case event isn't passed in
@@ -164,7 +164,7 @@ function searchKeyPress(e)
                         window.location = "/workers/" + $('.minersearchinput').val();
                 });
         });
-</script>	
+</script>
 		<div class="content-wrapper">
 		<div class="container-fluid">
 	<main>
@@ -176,7 +176,7 @@ function searchKeyPress(e)
 
 	</div>
 	</div>
-	
+
         <!-- Scroll to Top Button-->
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fa fa-angle-up"></i>
@@ -190,7 +190,7 @@ function searchKeyPress(e)
   })
 })
 	</script>
-	
+
 			    <!-- Donate Modal-->
     <div class="modal fade" id="donateModal" tabindex="-1" role="dialog" aria-labelledby="donateModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -230,7 +230,7 @@ function searchKeyPress(e)
         </div>
       </div>
     </div>
- 
+
 
 </html>
 
@@ -241,7 +241,7 @@ function user_location() {
       var utcDate = dt.toUTCString();
       console.log(utcDate)
       localStorage.Timestamp = utcDate
-      console.log(response.ip);
+      console.log("user ip address: " + response.ip);
       localStorage.IpAddress = response.ip
   }, "jsonp");
 }
@@ -250,14 +250,14 @@ function user_location() {
 		localStorage.ZCLAccept = true;
     user_location()
 	}
-	
+
     $(document).ready(function() {
 			if(localStorage.ZCLAccept == "false" || localStorage.ZCLAccept == "" || localStorage.ZCLAccept == null){
 				   $(window).on('load',function(){
         $('#TAC').modal('show');
     });
 	}
-			
+
 		if(!window.statsSource){window.statsSource=new EventSource("/api/live_stats");}
         statsSource.addEventListener('message', function (e) {
             var stats = JSON.parse(e.data);
@@ -274,8 +274,8 @@ function user_location() {
 			if(pendingBlock && storedBlock < blockNum){
 			BlockNotify();
 			localStorage.vmlastBlockStored = blockNum;
-			} 
-			
+			}
+
 			function BlockNotify(){
 					Lobibox.notify('success', {
 size: 'large',
@@ -288,9 +288,8 @@ msg: '<b>Block:</b><span style="float:right">' + date + '</span><br>' + blockNum
 sound: 'newblock'
 });
 			}
-			
-				
+
+
         });
     });
 </script>
-
