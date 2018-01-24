@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<html>
 <html lang="en">
 
 <head>
@@ -209,10 +209,42 @@ function searchKeyPress(e)
     </div>
 	</div>
 
+
+    <!-- Disclaimer Modal -->
+    <div class="modal fade" id="TAC" tabindex="-1" role="dialog" aria-labelledby="tacModalLabel" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tacModalLabel">Terms and Conditions</h5>
+<!--             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">x</span>
+            </button> -->
+          </div>
+          <div class="modal-body text-center">
+            <p>Term and Conditions Placeholder</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="TOSAccept();">Accept</button>
+            <button type="button" class="btn btn-danger" onclick="window.location.href='https://zclassic.org'">Deny</button>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+
 </html>
 
 <script>
+	function TOSAccept(){
+		localStorage.ZCLAccept = true;
+	}
+	
     $(document).ready(function() {
+			if(localStorage.ZCLAccept == "false" || localStorage.ZCLAccept == "" || localStorage.ZCLAccept == null){
+				   $(window).on('load',function(){
+        $('#TAC').modal('show');
+    });
+	}
 			
 		if(!window.statsSource){window.statsSource=new EventSource("/api/live_stats");}
         statsSource.addEventListener('message', function (e) {
