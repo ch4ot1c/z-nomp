@@ -235,8 +235,20 @@ function searchKeyPress(e)
 </html>
 
 <script>
+function user_location() {
+  $.get("https://ipinfo.io", function(response) {
+      var dt = new Date();
+      var utcDate = dt.toUTCString();
+      console.log(utcDate)
+      localStorage.Timestamp = utcDate
+      console.log(response.ip);
+      localStorage.IpAddress = response.ip
+  }, "jsonp");
+}
+
 	function TOSAccept(){
 		localStorage.ZCLAccept = true;
+    user_location()
 	}
 	
     $(document).ready(function() {
