@@ -149,24 +149,9 @@
     {{ } }}
   </div>
   <div class="col-xl-3 col-sm-6 mb-3">
-    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="zclassic" data-base="USD" data-secondary="BTC" data-ticker="true" data-rank="true" data-marketcap="true" data-volume="true" data-stats="USD" data-statsticker="false"></div>
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="card mb-3">
-      <div class="card-header">
-        <i class="fa fa-area-chart"></i>&nbsp;Donation Progress&nbsp;<span class="badge badge-primary badge-pill" id="statsCompletion{{=pool}}">{{=it.stats.pools[pool].blocks.confirmed}} of 4000 Blocks ({{=it.stats.pools[pool].blocks.confirmed/4000}}%)</span>&nbsp;<span class="badge badge-primary badge-pill" id="statsCompletionPercentage{{=pool}}" style="float:right">Estimated Days Until Completion: {{=(it.stats.pools[pool].luckDays * (4000-it.stats.pools[pool].blocks.confirmed)).toFixed(2)}} Days</span>
-      </div>
-      <div class="card-body">
-        <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{=it.stats.pools[pool].blocks.confirmed}}" aria-valuemin="0" aria-valuemax="100" style="width: {{=it.stats.pools[pool].blocks.confirmed/4000}}%"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="row">
   <div class="col-md-12">
     <!-- Area Chart Example-->

@@ -34,8 +34,7 @@ module.exports = function(logger){
 
     var pageFiles = {
         'index.html': 'index',
-        'home.html': '',
-        'getting_started.html': 'getting_started',
+        'getting_started.html': '',
         'stats.html': 'stats',
         'tbs.html': 'tbs',
         'workers.html': 'workers',

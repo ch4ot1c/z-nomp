@@ -156,6 +156,13 @@ div.tooltip {
   </div>
   {{ } }}
 </div>
+<div class="row">
+  <div class="col-md-12 cold-sm-12">
+    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script>
+    <div class="coinmarketcap-currency-widget" data-currency="zclassic" data-base="USD" data-secondary="ZCL" data-ticker="true" data-rank="true" data-marketcap="true" data-volume="true" data-stats="USD" data-statsticker="false"></div>
+  </div>
+</div>
+
 {{ for(var pool in it.stats.pools) { }}
 {{ var blockscomb = new Array; }}
 <div class="row">

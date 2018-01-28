@@ -9,7 +9,7 @@
   <meta name="author" content="">
   <link rel="icon" href="/static/images/favicon.ico">
 
-  <title>EquiPool</title>
+  <title>Mining Madness</title>
   <!-- Bootstrap core CSS-->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
@@ -29,33 +29,19 @@
 
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="/"><img src="/static/images/logo.png"></a>
+    <a class="navbar-brand" href="/">Mining Madness!</a> <!--<img src="/static/images/logo.png"> -->
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-        <li class="nav-item {{? it.selected === '' }}active{{?}}"  title="Home">
+        <li class="nav-item {{? it.selected === '' }}active{{?}}"  title="Getting Started">
           <a class="nav-link" href="/">
             <i class="fa fa-fw fa-home"></i>
-            <span class="nav-link-text">Home</span>
+            <span class="nav-link-text">Getting Started</span>
           </a>
         </li>
-        <!--
-        <li class="nav-item {{? it.selected === 'dashboard' }}active{{?}}"  title="Dashboard">
-        <a class="nav-link" href="/dashboard">
-        <i class="fa fa-fw fa-dashboard"></i>
-        <span class="nav-link-text">Dashboard</span>
-      </a>
-    </li>
-  -->
 
-  <li class="nav-item {{? it.selected === 'getting_started' }}active{{?}}"  title="Getting Started">
-    <a class="nav-link" href="/getting_started">
-      <i class="fa fa-fw fa-check"></i>
-      <span class="nav-link-text">Getting Started</span>
-    </a>
-  </li>
   <li class="nav-item {{? it.selected === 'stats' }}active{{?}}"  title="Graph Stats">
     <a class="nav-link" href="/stats">
       <i class="fa fa-fw fa-area-chart"></i>
@@ -65,19 +51,19 @@
   <li class="nav-item {{? it.selected === 'tbs' }}active{{?}}"  title="Table Stats">
     <a class="nav-link" href="/tbs">
       <i class="fa fa-fw fa-globe"></i>
-      <span class="nav-link-text">Global Stats</span>
+      <span class="nav-link-text">Pool Stats</span>
     </a>
   </li>
   <li class="nav-item {{? it.selected === 'workers' }}active{{?}}"  title="Workers">
     <a class="nav-link" href="/workers">
       <i class="fa fa-fw fa-wrench"></i>
-      <span class="nav-link-text">Worker Stats</span>
+      <span class="nav-link-text">Miner Stats</span>
     </a>
   </li>
   <li class="nav-item {{? it.selected === 'payments' }}active{{?}}" title="Payments">
     <a class="nav-link" href="/payments">
       <i class="fa fa-fw fa-money"></i>
-      <span class="nav-link-text">Payments</span>
+      <span class="nav-link-text">Payouts</span>
     </a>
   </li>
   <li class="nav-item {{? it.selected === 'api' }}active{{?}}"  title="API">
