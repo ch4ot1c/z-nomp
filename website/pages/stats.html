@@ -16,6 +16,7 @@
   font-size: 1.2em;
   text-align: center;
   padding: 4px;
+  font-weight: 600;
 }
 
 #boxesLower {
@@ -116,7 +117,7 @@ div.tooltip {
     return date.toLocaleTimeString("en-us", options);
 
   } }}
-  <div class="col-md-12 col-sm-12">
+  <div class="col-md-6 col-sm-6">
     {{ for(var pool in it.stats.pools) { }}
     <div class="card text-center">
       <div class="card-header bg-info text-white">
@@ -135,9 +136,8 @@ div.tooltip {
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12 col-sm-12">
+
+  <div class="col-md-6 col-sm-6">
     <div class="card text-center">
       <div class="card-header bg-info text-white">
         <h5>{{=capitalizeFirstLetter(it.stats.pools[pool].name)}} Network Stats</h5>

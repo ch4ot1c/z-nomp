@@ -211,7 +211,8 @@
 
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-win-nheq" role="tabpanel" aria-labelledby="pills-win-tab-nheq">
-              <span>Make sure start.bat file looks like this:</span><pre class="pre-help">
+              <span>Make sure start.bat file looks like this:</span>
+              <pre class="pre-help">
                 <b>CPU: </b>nheqminer.exe -l {{=it.portalConfig.website.stratumHost}}:[port] -u YOUR_WALLET_ADDRESS/YOUR_WORKER_NAME -p x
                 <b>OpenCL 4 devices: </b>nheqminer.exe -l {{=it.portalConfig.website.stratumHost}}:[port] -u YOUR_WALLET_ADDRESS/YOUR_WORKER_NAME -p x -od 0 1 2 3
                 <b>OpenCL 6 devices: </b>nheqminer.exe -l {{=it.portalConfig.website.stratumHost}}:[port] -u YOUR_WALLET_ADDRESS/YOUR_WORKER_NAME -p x -od 0 1 2 3 4 5
@@ -226,16 +227,12 @@
               </div>
               <div class="tab-pane fade" id="pills-linux-nheq" role="tabpanel" aria-labelledby="pills-linux-tab-nheq">
                 <span>Make sure start.bat file looks like this:</span>
-                <pre class="pre-help">CPU:
-                  ./nheqminer -l {{=it.portalConfig.website.stratumHost}}:[port] -u YOUR_WALLET_ADDRESS/YOUR_WORKER_NAME -p x
-                  OpenCL 4 devices:
-                  ./nheqminer -l {{=it.portalConfig.website.stratumHost}}:[port] -u YOUR_WALLET_ADDRESS/YOUR_WORKER_NAME -p x -od 0 1 2 3
-                  OpenCL 6 devices:
-                  ./nheqminer -l {{=it.portalConfig.website.stratumHost}}:[port] -u YOUR_WALLET_ADDRESS/YOUR_WORKER_NAME -p x -od 0 1 2 3 4 5
-                  CUDA 4 devices:
-                  ./nheqminer -l {{=it.portalConfig.website.stratumHost}}:[port] -u YOUR_WALLET_ADDRESS/YOUR_WORKER_NAME -p x -cd 0 1 2 3
-                  CUDA 6 devices:
-                  ./nheqminer -l {{=it.portalConfig.website.stratumHost}}:[port] -u YOUR_WALLET_ADDRESS/YOUR_WORKER_NAME -p x-cd 0 1 2 3 4 5</pre>
+                <pre class="pre-help">
+                  <b>CPU: </b>./nheqminer -l {{=it.portalConfig.website.stratumHost}}:[port] -u YOUR_WALLET_ADDRESS/YOUR_WORKER_NAME -p x
+                  <b>OpenCL 4 devices: </b>./nheqminer -l {{=it.portalConfig.website.stratumHost}}:[port] -u YOUR_WALLET_ADDRESS/YOUR_WORKER_NAME -p x -od 0 1 2 3
+                  <b>OpenCL 6 devices: </b>./nheqminer -l {{=it.portalConfig.website.stratumHost}}:[port] -u YOUR_WALLET_ADDRESS/YOUR_WORKER_NAME -p x -od 0 1 2 3 4 5
+                  <b>CUDA 4 devices: </b>./nheqminer -l {{=it.portalConfig.website.stratumHost}}:[port] -u YOUR_WALLET_ADDRESS/YOUR_WORKER_NAME -p x -cd 0 1 2 3
+                  <b>CUDA 6 devices: </b>./nheqminer -l {{=it.portalConfig.website.stratumHost}}:[port] -u YOUR_WALLET_ADDRESS/YOUR_WORKER_NAME -p x-cd 0 1 2 3 4 5</pre>
                   <p>Where:</p>
                   <ul>
                     <li>YOUR_WALLET_ADDRESS - your valid {{=pool}} address</li>
