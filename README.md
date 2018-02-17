@@ -1,4 +1,4 @@
-# Zcash® and Zclassic - Node Open Mining Portal
+# Zclassic + Equihash Mining Pool - Node Open Mining Portal
 
 **[Click here for the official - Zcash® and Zclassic Stratum Mining Pool Installation Guide](https://zdeveloper.org/wiki:z-nomp_install)**
 
